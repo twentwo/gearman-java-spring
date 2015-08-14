@@ -4,12 +4,13 @@ import java.net.Inet4Address;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.Logger;
 import org.gearman.Gearman;
 import org.gearman.GearmanFunction;
 import org.gearman.GearmanLostConnectionPolicy;
 import org.gearman.GearmanServer;
 import org.gearman.GearmanWorker;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.FactoryBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.core.io.ClassPathResource;
@@ -46,7 +47,7 @@ public class GearmanWorkerFactory implements FactoryBean<GearmanWorker[]>, Initi
 	public static final int DEFAULT_WORKERS_COUNT = 10;
 
 	// TODO Get logger instance
-	public static final Logger logger = null;
+	private static final Logger logger = LoggerFactory.getLogger(GearmanWorkerFactory.class);
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
@@ -104,7 +105,7 @@ public class GearmanWorkerFactory implements FactoryBean<GearmanWorker[]>, Initi
 			attachFunctionsToWorker(worker, functionNames);
 
 			gearmanWorkers[i] = worker;
-			logger.info("Successfully created worker " + (i + 1) + " for worker set : " + workerSetName);
+			logger.info("Successfully created worker clientID:"+worker.getClientID()+ " for worker set : " + workerSetName);
 		}
 	}
 
@@ -160,7 +161,6 @@ public class GearmanWorkerFactory implements FactoryBean<GearmanWorker[]>, Initi
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
 	}
 
 	/**

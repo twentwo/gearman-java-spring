@@ -1,6 +1,5 @@
 package com.roshan.gearman.job.submitters;
 
-import org.apache.logging.log4j.Logger;
 import org.gearman.GearmanClient;
 import org.gearman.GearmanFunction;
 import org.gearman.GearmanFunctionCallback;
@@ -9,6 +8,7 @@ import com.roshan.gearman.function.mapper.GearmanFunctionMapper;
 import com.roshan.gearman.job.inputs.GearmanJobInput;
 import com.roshan.gearman.job.jobresult.GearmanJobResult;
 import com.roshan.gearman.utils.GearmanUtils;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Roshan Alexander
@@ -25,7 +25,7 @@ public abstract class AbstractJobSubmitter<T extends GearmanJobInput, P extends 
 	private GearmanFunctionMapper gearmanFunctionMapper;
 
 	// TODO Get logger instance
-	public static final Logger logger = null;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AbstractJobSubmitter.class);
 
 	Class<P> jobResultClassType;
 

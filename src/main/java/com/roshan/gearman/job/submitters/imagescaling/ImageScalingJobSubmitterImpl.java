@@ -6,6 +6,7 @@ import com.roshan.gearman.job.inputs.imagescaling.ImageScaleJobInput;
 import com.roshan.gearman.job.jobresult.DefaultGearmanJobResult;
 import com.roshan.gearman.job.submitters.AbstractJobSubmitter;
 import com.roshan.gearman.utils.GearmanUtils;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Roshan Alexander
@@ -22,7 +23,7 @@ implements ImageScalingJobSubmitter {
 	}
 
 	// TODO Get logger instance
-	private static Logger logger = null;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(ImageScalingJobSubmitterImpl.class);
 
 	@Override
 	public void submitImageForScaling(ImageScaleJobInput imageScaleJobInput) {

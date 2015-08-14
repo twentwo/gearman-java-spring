@@ -1,12 +1,12 @@
 package com.roshan.gearman.function;
 
-import org.apache.logging.log4j.Logger;
 import org.gearman.GearmanFunction;
 import org.gearman.GearmanFunctionCallback;
 
 import com.roshan.gearman.job.inputs.GearmanJobInput;
 import com.roshan.gearman.job.jobresult.GearmanJobResult;
 import com.roshan.gearman.utils.GearmanUtils;
+import org.slf4j.LoggerFactory;
 
 /**
  * Needs to be implemented by all the classes registering themselves as gearman
@@ -26,7 +26,7 @@ public abstract class AbstractGearmanFunction<T extends GearmanJobInput, P exten
 	private T jobInput;
 
 	// TODO Get Instance of Logger
-	public static final Logger logger = null;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AbstractGearmanFunction.class);
 
 	public T getObjectFromBytes(byte[] bytes) throws Exception {
 		return GearmanUtils.getObjectFromBytes(bytes, getInputClassType());

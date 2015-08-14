@@ -4,6 +4,7 @@ import com.roshan.gearman.job.inputs.webcrawling.WebCrawlingJobInput;
 import com.roshan.gearman.job.jobresult.webcrawling.WebCrawlingJobResult;
 import com.roshan.gearman.job.submitters.AbstractJobSubmitter;
 import com.roshan.gearman.utils.GearmanUtils;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Roshan Alexander
@@ -11,6 +12,8 @@ import com.roshan.gearman.utils.GearmanUtils;
  */
 public class WebCrawlingJobSubmitterImpl extends AbstractJobSubmitter<WebCrawlingJobInput, WebCrawlingJobResult>
 implements WebCrawlingJobSubmitter {
+
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WebCrawlingJobSubmitterImpl.class);
 
 	/**
 	 * @param jobResultClassType

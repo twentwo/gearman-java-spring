@@ -4,6 +4,7 @@ import org.apache.logging.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import com.roshan.gearman.job.jobresult.DefaultGearmanJobResult;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Roshan Alexander
@@ -12,7 +13,7 @@ import com.roshan.gearman.job.jobresult.DefaultGearmanJobResult;
 public class GearmanUtils {
 
 	// TODO Get logger Instance
-	public static final Logger logger = null;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(GearmanUtils.class);
 
 	/**
 	 * Used to convert an object into its byte array representation. If the

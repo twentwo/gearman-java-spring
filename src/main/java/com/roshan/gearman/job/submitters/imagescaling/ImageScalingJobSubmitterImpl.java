@@ -6,6 +6,8 @@ import com.roshan.gearman.job.inputs.imagescaling.ImageScaleJobInput;
 import com.roshan.gearman.job.jobresult.DefaultGearmanJobResult;
 import com.roshan.gearman.job.submitters.AbstractJobSubmitter;
 import com.roshan.gearman.utils.GearmanUtils;
+import org.gearman.GearmanJobEvent;
+import org.gearman.GearmanJobReturn;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -15,9 +17,6 @@ import org.slf4j.LoggerFactory;
 public class ImageScalingJobSubmitterImpl extends AbstractJobSubmitter<ImageScaleJobInput, DefaultGearmanJobResult>
 implements ImageScalingJobSubmitter {
 
-	/**
-	 * @param jobResultClassType
-	 */
 	public ImageScalingJobSubmitterImpl() {
 		super(DefaultGearmanJobResult.class);
 	}
@@ -33,7 +32,29 @@ implements ImageScalingJobSubmitter {
 
 			if (isGearmanEnabled()) {
 				logger.debug("Submitting backgroung job for image scaling. Url : " + imageScaleJobInput.getImageUrl());
-				gearmanClient.submitBackgroundJob(functionName, data);
+				GearmanJobReturn jobReturn = gearmanClient.submitJob(functionName, data);
+				while (!jobReturn.isEOF()) {
+
+					// Poll the next job event (blocking operation)
+					GearmanJobEvent event = jobReturn.poll();
+
+					switch (event.getEventType()) {
+
+						// success
+						case GEARMAN_JOB_SUCCESS: // Job completed successfully
+							// print the result
+							System.out.println(new String(event.getData()));
+							break;
+
+						// failure
+						case GEARMAN_SUBMIT_FAIL: // The job submit operation failed
+						case GEARMAN_JOB_FAIL: // The job's execution failed
+							System.err.println(event.getEventType() + ": "
+									+ new String(event.getData()));
+						default:
+					}
+
+				}
 			} else {
 				logger.debug("Submitting local job for image scaling. Url : " + imageScaleJobInput.getImageUrl());
 				submitLocalJob(functionName, imageScaleJobInput, null);

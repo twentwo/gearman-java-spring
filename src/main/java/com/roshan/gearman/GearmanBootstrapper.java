@@ -1,6 +1,8 @@
 package com.roshan.gearman;
 
-import org.apache.logging.log4j.Logger;
+import com.roshan.gearman.job.inputs.imagescaling.ImageScaleJobInput;
+import com.roshan.gearman.job.submitters.imagescaling.ImageScalingJobSubmitter;
+import org.slf4j.LoggerFactory;
 
 /**
  *
@@ -20,7 +22,7 @@ public class GearmanBootstrapper extends AbstractBootstrapper {
 	}
 
 	// TODO Find how to get logger instance
-	private static final Logger logger = null;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(GearmanBootstrapper.class);
 
 	private static final String PROCESS_NAME = "Gearman Workers Bootstrapper Process";
 
@@ -30,7 +32,17 @@ public class GearmanBootstrapper extends AbstractBootstrapper {
 	}
 
 	public static void main(String[] args) throws Exception {
+		logger.info(PROCESS_NAME);
 		GearmanBootstrapper gearmanBootstrapper = new GearmanBootstrapper();
+		ImageScalingJobSubmitter imageScalingJobSubmitter = (ImageScalingJobSubmitter)GearmanBootstrapper
+				.getApplicationContext().getBean("imageScalingJobSubmitter");
+		ImageScaleJobInput imageScaleJobInput = new ImageScaleJobInput();
+		imageScaleJobInput.setImageUrl("http://jkskjdfkj");
+		while (true){
+			imageScalingJobSubmitter.submitImageForScaling(imageScaleJobInput);
+			//Thread.sleep(20);
+		}
+
 	}
 
 }

@@ -105,7 +105,7 @@ public class GearmanWorkerFactory implements FactoryBean<GearmanWorker[]>, Initi
 			attachFunctionsToWorker(worker, functionNames);
 
 			gearmanWorkers[i] = worker;
-			logger.info("Successfully created worker clientID:"+worker.getClientID()+ " for worker set : " + workerSetName);
+			logger.info("Successfully created worker " + (i + 1) + " for worker set : " + workerSetName);
 		}
 	}
 
@@ -160,8 +160,8 @@ public class GearmanWorkerFactory implements FactoryBean<GearmanWorker[]>, Initi
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-	}
+	//public static void main(String[] args) {
+	//}
 
 	/**
 	 * @return the gearman

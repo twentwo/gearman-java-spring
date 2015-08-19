@@ -12,6 +12,7 @@ import com.roshan.gearman.job.inputs.GearmanJobInput;
 public class ImageScaleJobInput implements GearmanJobInput {
 
 	/**
+
 	 *
 	 */
 	private static final long serialVersionUID = 1L;

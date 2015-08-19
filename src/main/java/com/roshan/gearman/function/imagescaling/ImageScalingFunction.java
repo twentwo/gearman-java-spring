@@ -1,5 +1,6 @@
 package com.roshan.gearman.function.imagescaling;
 
+import com.roshan.gearman.utils.GearmanUtils;
 import org.apache.logging.log4j.Logger;
 import org.gearman.GearmanFunctionCallback;
 
@@ -14,7 +15,7 @@ import com.roshan.gearman.job.jobresult.DefaultGearmanJobResult;
 public class ImageScalingFunction extends AbstractGearmanFunction<ImageScaleJobInput, DefaultGearmanJobResult> {
 
 	// TODO Get logger instance
-	public static final Logger logger = null;
+	//public static final Logger logger = null;
 
 	@Override
 	public DefaultGearmanJobResult doWork(String function, ImageScaleJobInput imageScaleJobInput,
@@ -22,12 +23,20 @@ public class ImageScalingFunction extends AbstractGearmanFunction<ImageScaleJobI
 		// TODO Actual logic for scaling the image
 		// TODO Remove the sleep(). Included here to mimic the image scaling
 		// operation
-		try {
+		/*try {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+		}*/
+		byte[] data = null;
+		imageScaleJobInput.setImageUrl("http://twentwo.cn");
+		try {
+			data = GearmanUtils.getBytesFromObject(imageScaleJobInput);
+		} catch (Exception e) {
+			logger.error("Error serializing the job input object for gearman function : " + function, e);
+			e.printStackTrace();
 		}
-		return null;
+		return new DefaultGearmanJobResult(data);
 	}
 
 	@Override

@@ -15,9 +15,6 @@ implements WebCrawlingJobSubmitter {
 
 	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(WebCrawlingJobSubmitterImpl.class);
 
-	/**
-	 * @param jobResultClassType
-	 */
 	public WebCrawlingJobSubmitterImpl() {
 		super(WebCrawlingJobResult.class);
 	}

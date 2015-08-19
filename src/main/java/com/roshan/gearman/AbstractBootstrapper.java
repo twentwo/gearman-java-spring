@@ -9,6 +9,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public abstract class AbstractBootstrapper {
 
+	public static ApplicationContext getApplicationContext() {
+		return applicationContext;
+	}
+
 	private static ApplicationContext applicationContext;
 
 	private static Object lock = new Object();

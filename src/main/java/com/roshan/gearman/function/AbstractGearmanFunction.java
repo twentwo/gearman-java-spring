@@ -26,7 +26,7 @@ public abstract class AbstractGearmanFunction<T extends GearmanJobInput, P exten
 	private T jobInput;
 
 	// TODO Get Instance of Logger
-	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(AbstractGearmanFunction.class);
+	protected final org.slf4j.Logger logger = LoggerFactory.getLogger(AbstractGearmanFunction.class);
 
 	public T getObjectFromBytes(byte[] bytes) throws Exception {
 		return GearmanUtils.getObjectFromBytes(bytes, getInputClassType());
